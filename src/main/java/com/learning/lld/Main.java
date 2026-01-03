@@ -1,17 +1,27 @@
 package com.learning.lld;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import com.learning.lld.observer.CurrentWeatherDisplay;
+import com.learning.lld.observer.FutureForecastDisplay;
+import com.learning.lld.observer.WeatherStation;
+
 public class Main {
     static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+        System.out.println("Beginning og function main");
+        WeatherStation weatherStation = new WeatherStation();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
-        }
+        CurrentWeatherDisplay currentWeatherDisplay = new CurrentWeatherDisplay();
+        FutureForecastDisplay futureForecastDisplay = new FutureForecastDisplay();
+
+        weatherStation.addObserver(currentWeatherDisplay);
+        weatherStation.addObserver(futureForecastDisplay);
+
+        weatherStation.setWeatherData(14.05f,66.45f);
+
+        weatherStation.setWeatherData(21.07f,77.56f);
+
+        weatherStation.removeObserver(futureForecastDisplay);
+
+        weatherStation.setWeatherData(.07f,.56f);
+
     }
 }
