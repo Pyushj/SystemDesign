@@ -3,6 +3,9 @@ package com.learning.lld;
 import com.learning.lld.decorator.CheesePizzaDecorator;
 import com.learning.lld.decorator.MushroomPizzaDecorator;
 import com.learning.lld.decorator.ThinCrustPizza;
+import com.learning.lld.factory.Vehicle;
+import com.learning.lld.factory.VehicleFactoryProducer;
+import com.learning.lld.factory.VehicleType;
 import com.learning.lld.observer.CurrentWeatherDisplay;
 import com.learning.lld.observer.FutureForecastDisplay;
 import com.learning.lld.observer.WeatherStation;
@@ -10,7 +13,7 @@ import com.learning.lld.observer.WeatherStation;
 public class Main {
     static void main() {
         System.out.println("Beginning of function main...");
-        testDecorator();
+        testFactory();
     }
     static void testObserver() {
         WeatherStation weatherStation = new WeatherStation();
@@ -39,5 +42,10 @@ public class Main {
         MushroomPizzaDecorator mushroomPizzaDecorator = new MushroomPizzaDecorator(cheesePizzaDecorator);
         System.out.println(mushroomPizzaDecorator.getDescription()+" cost: "+ mushroomPizzaDecorator.getCost());
 
+    }
+
+    static void testFactory() {
+        Vehicle car = VehicleFactoryProducer.getFactoryInstance(VehicleType.CAR).createVehicle();
+        System.out.println("Vehicle description " + car.getDescription());
     }
 }
