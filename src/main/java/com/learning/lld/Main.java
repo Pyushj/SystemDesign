@@ -1,5 +1,6 @@
 package com.learning.lld;
 
+import com.learning.lld.chainofresponsibility.*;
 import com.learning.lld.decorator.CheesePizzaDecorator;
 import com.learning.lld.decorator.MushroomPizzaDecorator;
 import com.learning.lld.decorator.ThinCrustPizza;
@@ -9,11 +10,12 @@ import com.learning.lld.factory.VehicleType;
 import com.learning.lld.observer.CurrentWeatherDisplay;
 import com.learning.lld.observer.FutureForecastDisplay;
 import com.learning.lld.observer.WeatherStation;
+import com.learning.lld.tictactoe.Game;
 
 public class Main {
     static void main() {
         System.out.println("Beginning of function main...");
-        testFactory();
+        testTicTacToe();
     }
     static void testObserver() {
         WeatherStation weatherStation = new WeatherStation();
@@ -47,5 +49,18 @@ public class Main {
     static void testFactory() {
         Vehicle car = VehicleFactoryProducer.getFactoryInstance(VehicleType.CAR).createVehicle();
         System.out.println("Vehicle description " + car.getDescription());
+    }
+
+    static void testChainOfResponsibility() {
+        LogHandler fatalLogHandler = new FatalLogHandler(null);
+        LogHandler errorLogHandler = new ErrorLogHandler(fatalLogHandler);
+        LogHandler debugLogHandler = new DebugLogHandler(errorLogHandler);
+        LogHandler infoLogHandler = new InfoLogHandler(debugLogHandler);
+
+        infoLogHandler.parseLog(LogLevel.ERROR, "This should be an error log");
+
+        infoLogHandler.parseLog(LogLevel.FATAL, "This should be a fatal log");
+        infoLogHandler.parseLog(LogLevel.DEBUG, "This should be a debug log");
+        infoLogHandler.parseLog(LogLevel.INFO, "This should be an info log");
     }
 }
