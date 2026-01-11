@@ -1,6 +1,10 @@
 package com.learning.lld;
 
 import com.learning.lld.chainofresponsibility.*;
+import com.learning.lld.composite.calculator.ArithmeticExpression;
+import com.learning.lld.composite.calculator.Operation;
+import com.learning.lld.composite.filesystem.Directory;
+import com.learning.lld.composite.filesystem.File;
 import com.learning.lld.decorator.CheesePizzaDecorator;
 import com.learning.lld.decorator.MushroomPizzaDecorator;
 import com.learning.lld.decorator.ThinCrustPizza;
@@ -10,12 +14,12 @@ import com.learning.lld.factory.VehicleType;
 import com.learning.lld.observer.CurrentWeatherDisplay;
 import com.learning.lld.observer.FutureForecastDisplay;
 import com.learning.lld.observer.WeatherStation;
-import com.learning.lld.tictactoe.Game;
+import com.learning.lld.composite.calculator.Number;
 
 public class Main {
     static void main() {
         System.out.println("Beginning of function main...");
-        testTicTacToe();
+       testCompositeCalculator();
     }
     static void testObserver() {
         WeatherStation weatherStation = new WeatherStation();
@@ -62,5 +66,36 @@ public class Main {
         infoLogHandler.parseLog(LogLevel.FATAL, "This should be a fatal log");
         infoLogHandler.parseLog(LogLevel.DEBUG, "This should be a debug log");
         infoLogHandler.parseLog(LogLevel.INFO, "This should be an info log");
+    }
+
+    static void testCompositeFileSystem() {
+        Directory moviesDirectory = new Directory("Movies directory");
+        File bahubali = new File("Bahubali");
+        File inception = new File("Inception");
+
+        Directory comedyMovies = new Directory("Comedy movies directory");
+        File heraPheri = new File("Hera Pheri");
+        File dhamal = new File("Dhamal");
+        comedyMovies.addChildrenFileSystem(heraPheri);
+        comedyMovies.addChildrenFileSystem(dhamal);
+
+        moviesDirectory.addChildrenFileSystem(bahubali);
+        moviesDirectory.addChildrenFileSystem(inception);
+        moviesDirectory.addChildrenFileSystem(comedyMovies);
+
+        moviesDirectory.ls();
+    }
+
+    static void testCompositeCalculator() {
+        Number number2 = new Number(2);
+        Number number3 = new Number(3);
+        Number number7 = new Number(7);
+
+        ArithmeticExpression leftExpression = new ArithmeticExpression(number2,number3, Operation.MULTIPLY);
+
+        ArithmeticExpression rightExpression = new ArithmeticExpression(number7,number2, Operation.SUBSTRACT);
+
+        ArithmeticExpression exp = new ArithmeticExpression(leftExpression, rightExpression, Operation.ADD);
+        System.out.println(exp.evaluate());
     }
 }
