@@ -1,5 +1,8 @@
 package com.learning.lld;
 
+import com.learning.lld.builder.EngineeringStudentBuilder;
+import com.learning.lld.builder.Student;
+import com.learning.lld.builder.StudentBuilder;
 import com.learning.lld.chainofresponsibility.*;
 import com.learning.lld.composite.calculator.ArithmeticExpression;
 import com.learning.lld.composite.calculator.Operation;
@@ -19,7 +22,7 @@ import com.learning.lld.composite.calculator.Number;
 public class Main {
     static void main() {
         System.out.println("Beginning of function main...");
-       testCompositeCalculator();
+       testBuilder();
     }
     static void testObserver() {
         WeatherStation weatherStation = new WeatherStation();
@@ -97,5 +100,12 @@ public class Main {
 
         ArithmeticExpression exp = new ArithmeticExpression(leftExpression, rightExpression, Operation.ADD);
         System.out.println(exp.evaluate());
+    }
+
+    static void testBuilder(){
+        StudentBuilder engStudentBuilder = new EngineeringStudentBuilder();
+        Student alice = engStudentBuilder.setAge(22).setName("Alice").setRollNumber(112233).setMotherName("AliceMotherName").setCourseType().build();
+
+        System.out.println(alice);
     }
 }
