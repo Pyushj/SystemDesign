@@ -18,11 +18,12 @@ import com.learning.lld.observer.CurrentWeatherDisplay;
 import com.learning.lld.observer.FutureForecastDisplay;
 import com.learning.lld.observer.WeatherStation;
 import com.learning.lld.composite.calculator.Number;
+import com.learning.lld.singleton.DbConnection;
 
 public class Main {
     static void main() {
         System.out.println("Beginning of function main...");
-       testBuilder();
+        testSingleton();
     }
     static void testObserver() {
         WeatherStation weatherStation = new WeatherStation();
@@ -107,5 +108,13 @@ public class Main {
         Student alice = engStudentBuilder.setAge(22).setName("Alice").setRollNumber(112233).setMotherName("AliceMotherName").setCourseType().build();
 
         System.out.println(alice);
+    }
+
+    static void testSingleton() {
+        DbConnection dbConnection = DbConnection.getInstance();
+        System.out.println(dbConnection);
+
+        DbConnection secondDbConnection = DbConnection.getInstance();
+        System.out.println("Second db connection: "+ secondDbConnection);
     }
 }
