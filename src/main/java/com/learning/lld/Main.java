@@ -18,6 +18,7 @@ import com.learning.lld.observer.CurrentWeatherDisplay;
 import com.learning.lld.observer.FutureForecastDisplay;
 import com.learning.lld.observer.WeatherStation;
 import com.learning.lld.composite.calculator.Number;
+import com.learning.lld.prototype.Document;
 import com.learning.lld.singleton.DbConnection;
 
 public class Main {
@@ -116,5 +117,10 @@ public class Main {
 
         DbConnection secondDbConnection = DbConnection.getInstance();
         System.out.println("Second db connection: "+ secondDbConnection);
+    }
+
+    static void testPrototype(){
+        Document document =new Document("docType","docStyle",20);
+        Document copyDocument = (Document) document.cloneObject();
     }
 }
